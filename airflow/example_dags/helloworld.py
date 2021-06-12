@@ -17,6 +17,7 @@ default_args = {
 
 # get config
 configs = Variable.get("test_1", deserialize_json=True)
+config_1 = configs["key_1"]
 
 # initiate dag
 dag = DAG('Helloworld', default_args=default_args)
@@ -25,7 +26,7 @@ dag = DAG('Helloworld', default_args=default_args)
 
 t1 = BashOperator(
     task_id='task_1',
-    bash_command='echo "Hello World from Task 1"',
+    bash_command='echo "{0}"'.format(config_1),
     dag=dag)
 
 t2 = BashOperator(
