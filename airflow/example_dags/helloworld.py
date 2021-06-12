@@ -1,4 +1,5 @@
 from airflow import DAG
+from airflow.models import Variable
 from airflow.operators import BashOperator
 from datetime import datetime, timedelta
 
@@ -14,6 +15,10 @@ default_args = {
     'retry_delay': timedelta(minutes=1),
 }
 
+# get config
+configs = Variable.get("test_1", deserialize_json=True)
+
+# initiate dag
 dag = DAG('Helloworld', default_args=default_args)
 
 # t1, t2, t3 and t4 are examples of tasks created using operators
